@@ -1,0 +1,130 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+using namespace std;
+
+// Crop structure
+struct Crop {
+    string name;
+    string season;
+    string soil;
+    string nutrient; // add / deplete
+};
+
+// Function to add crop to file
+void addCrop() {
+    ofstream file("crops.txt", ios::app);
+
+    Crop c;
+    cout << "\nEnter crop name: ";
+    cin >> c.name;
+    cout << "Enter season (Kharif/Rabi/Summer): ";
+    cin >> c.season;
+    cout << "Enter soil type (Loamy/Clay/Sandy): ";
+    cin >> c.soil;
+    cout << "Nutrient effect (add/deplete): ";
+    cin >> c.nutrient;
+
+    file << c.name << " " << c.season << " " << c.soil << " " << c.nutrient << endl;
+    file.close();
+
+    cout << "✅ Crop added successfully!\n";
+}
+
+// Function to display crops
+void viewCrops() {
+    ifstream file("crops.txt");
+
+    Crop c;
+    cout << "\n--- Crop Database ---\n";
+
+    while (file >> c.name >> c.season >> c.soil >> c.nutrient) {
+        cout << "Name: " << c.name
+             << ", Season: " << c.season
+             << ", Soil: " << c.soil
+             << ", Nutrient: " << c.nutrient << endl;
+    }
+
+    file.close();
+}
+
+// Function to recommend crop
+void recommendCrop() {
+    ifstream file("crops.txt");
+    vector<Crop> crops;
+
+    Crop c;
+
+    // Load data into vector
+    while (file >> c.name >> c.season >> c.soil >> c.nutrient) {
+        crops.push_back(c);
+    }
+    file.close();
+
+    string prevCrop, soil, season;
+    string prevNutrient = "";
+
+    cout << "\nEnter previous crop: ";
+    cin >> prevCrop;
+    cout << "Enter soil type: ";
+    cin >> soil;
+    cout << "Enter season: ";
+    cin >> season;
+
+    // Find previous crop nutrient effect
+    for (auto &crop : crops) {
+        if (crop.name == prevCrop) {
+            prevNutrient = crop.nutrient;
+            break;
+        }
+    }
+
+    cout << "\n🌱 Recommended Crops:\n";
+
+    bool found = false;
+
+    for (auto &crop : crops) {
+        if (crop.soil == soil && crop.season == season && crop.name != prevCrop) {
+
+            // Rotation logic
+            if (prevNutrient == "deplete" && crop.nutrient == "add") {
+                cout << "✔ " << crop.name << " (Restores nutrients)\n";
+                found = true;
+            }
+            else if (prevNutrient == "add" && crop.nutrient == "deplete") {
+                cout << "✔ " << crop.name << " (Balanced rotation)\n";
+                found = true;
+            }
+        }
+    }
+
+    if (!found) {
+        cout << "⚠ No exact match found. Try different inputs.\n";
+    }
+}
+
+// Main menu
+int main() {
+    int choice;
+
+    do {
+        cout << "\n===== 🌾 Crop Rotation Scheduler =====\n";
+        cout << "1. Add Crop\n";
+        cout << "2. View Crops\n";
+        cout << "3. Get Recommendation\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1: addCrop(); break;
+            case 2: viewCrops(); break;
+            case 3: recommendCrop(); break;
+            case 4: cout << "Exiting...\n"; break;
+            default: cout << "Invalid choice!\n";
+        }
+
+    } while (choice != 4);
+
+    return 0;
+}
