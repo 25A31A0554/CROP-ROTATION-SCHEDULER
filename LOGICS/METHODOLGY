@@ -1,0 +1,41 @@
+🌾 Methodology: Crop Rotation Scheduler
+🔹 1. Data Collection
+Collect crop-related data such as:
+Crop name
+Suitable season (Kharif/Rabi/Summer)
+Soil type (Loamy, Clay, Sandy)
+Nutrient effect (adds or depletes soil nutrients)
+Store this data in a file (crops.txt)
+🔹 2. Data Storage
+Use file handling in C++ to store and retrieve crop data
+Each crop record is stored in a structured format:
+
+crop_name season soil nutrient_effect
+🔹 3. User Input
+The system takes input from the user:
+Previous crop grown
+Soil type
+Current season
+🔹 4. Data Processing
+Read crop data from file into memory (using arrays/vectors)
+Identify the nutrient effect of the previous crop
+Filter crops based on:
+Matching soil type
+Matching season
+Avoiding repetition of same crop
+🔹 5. Decision Logic
+Apply crop rotation rules:
+If previous crop depletes nutrients → select crops that add nutrients
+If previous crop adds nutrients → select crops that balance or deplete nutrients
+🔹 6. Output Generation
+Display recommended crops to the user
+Provide reason for recommendation (e.g., restores soil fertility)
+🔹 7. User Interaction (Menu System)
+Provide options:
+Add crop data
+View crop database
+Get recommendation
+🔹 8. Validation & Testing
+Test with different inputs
+Ensure correct recommendations based on rotation rules
+Handle cases where no suitable crop is found
