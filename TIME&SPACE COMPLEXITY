@@ -1,0 +1,16 @@
+ Time Complexity
+Let:
+n = number of crops in crops.txt
+ Steps Analysis:
+Reading file → O(n)
+Searching previous crop → O(n)
+Checking all crops for recommendation → O(n)
+ Total Time Complexity:
+O(n)
+✔ Because the program scans the crop list linearly.
+ Space Complexity
+ Memory Used:
+Vector/array to store crop data → O(n)
+Few variables (input, flags) → O(1)
+ Total Space Complexity:
+O(n)
