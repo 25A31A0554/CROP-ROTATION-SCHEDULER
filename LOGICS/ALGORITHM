@@ -1,0 +1,22 @@
+Start
+Open the file crops.txt in read mode
+Read all crop details and store them in a list
+Close the file
+Input from user:
+Previous crop name
+Soil type
+Season
+Find the nutrient effect of the previous crop from the list
+For each crop in the list:
+Check if:
+Soil type matches
+Season matches
+Crop is not same as previous crop
+Apply rotation logic:
+If previous crop depletes nutrients, select crops that add nutrients
+If previous crop adds nutrients, select crops that balance or deplete nutrients
+If suitable crops are found:
+Display recommended crop(s) with reason
+Else:
+Display "No suitable crop found"
+Stop
